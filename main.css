@@ -1,0 +1,14 @@
+.fonts-box {
+    display:flex;
+    justify-content: center;
+    flex-direction: row;
+    width: 50%;
+    margin: 0 auto;
+    background-color: #2b2a2a;
+    color: #c2c1c1;
+    font-size: 60px;
+}
+
+.font-box {
+    padding: 0 5px;
+}
