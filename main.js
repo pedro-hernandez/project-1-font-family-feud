@@ -65,23 +65,25 @@ fontFamilyPicker();
 // <head> and set it to the (non-intruder) font-family members
 
 const fontFamilyFont = () => {
-    document.querySelector('.main-font').setAttribute('href' , randomFontUrl);  
+    document.querySelector('.main-font').setAttribute('href', randomFontUrl);
     const fontBox = document.querySelector('.fonts-box');
     fontBox.setAttribute('style', 'font-family');
-    fontBox.style.fontFamily=(randomFontName);
+    fontBox.style.fontFamily = (randomFontName);
 }
 
 fontFamilyFont();
 
-// Randomly select and display the intruder font...
+// Randomly select the intruder font and its position
 
 const intruderPicker = () => {
-    const randomizeFont = (Math.floor(Math.random() * fontArray.length));
-    intruderFontName = fontArray[randomizeFont].name;
-    intruderFontUrl = fontArray[randomizeFont].url;
-    intruderFontType = fontArray[randomizeFont].type;
-    intruderFontMoreInfo = fontArray[randomizeFont].moreInfo;
+    const randomizeIntruderFont = (Math.floor(Math.random() * fontArray.length));
+    intruderFontName = fontArray[randomizeIntruderFont].name;
+    intruderFontUrl = fontArray[randomizeIntruderFont].url;
+    intruderFontType = fontArray[randomizeIntruderFont].type;
+    intruderFontMoreInfo = fontArray[randomizeIntruderFont].moreInfo;
 }
+
+intruderPicker();
 
 const randomizeIntruderPosition = () => {
     intruderPosition = (Math.floor(Math.random() * 9));
@@ -89,17 +91,15 @@ const randomizeIntruderPosition = () => {
 
 randomizeIntruderPosition();
 
+// Place and display intruder font
+
 const intruderFont = () => {
-    document.querySelector('.intruder-font').setAttribute('href' , randomFontUrl);  
+    document.querySelector('.intruder-font').setAttribute('href', intruderFontUrl);
     const intruderFontBox = document.querySelectorAll('.font-box');
     const intruderPara = intruderFontBox.item(intruderPosition);
     let intruderLetter = intruderPara.firstElementChild;
-
-    // console.log(intruderPosition);
-    // console.log(intruderPara);
-
     intruderLetter.setAttribute('style', 'font-family');
-    intruderLetter.style.fontFamily=(intruderFontName);
+    intruderLetter.style.fontFamily = (intruderFontName);
 
 }
 
