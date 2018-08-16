@@ -1,0 +1,72 @@
+// Testing fontArray array of objects
+// Starter Serif fonts
+
+// added 8/15
+
+{ name: '',
+url: '',
+type: '',
+moreInfo: '',
+},
+
+[{ name:'Merriweather', 
+url:'<'https://fonts.googleapis.com/css?family=Merriweather' rel="stylesheet">', 
+type: 'Serif',
+moreInfo: 'https://fonts.google.com/specimen/Merriweather'},
+
+{ name: 'Roboto Slab',
+url: '<link href="https://fonts.googleapis.com/css?family=Roboto+Slab" rel="stylesheet">',
+type: 'Serif',
+moreInfo: 'https://fonts.google.com/specimen/Roboto+Slab',
+},
+
+{ name: 'Playfair Display',
+url: '<link href="https://fonts.googleapis.com/css?family=Playfair+Display" rel="stylesheet">
+'
+type: 'Serif',
+moreInfo: 'https://fonts.google.com/specimen/Playfair+Display',
+},
+
+{ name: 'Source Serif Pro',
+url: '<link href="https://fonts.googleapis.com/css?family=Source+Serif+Pro" rel="stylesheet">',
+type: 'Serif',
+moreInfo: 'https://fonts.google.com/specimen/Source+Serif+Pro',
+},
+
+{ name: 'Cardo',
+url: '<link href="https://fonts.googleapis.com/css?family=Cardo" rel="stylesheet">',
+type: 'Serif',
+moreInfo: 'https://fonts.google.com/specimen/Cardo',
+},
+
+// added 8/16
+
+{ name: 'Arvo',
+url: 'https://fonts.googleapis.com/css?family=Arvo',
+type: 'Serif',
+moreInfo: 'https://fonts.google.com/specimen/Arvo',
+},
+
+{ name: 'Bree Serif',
+url: 'https://fonts.googleapis.com/css?family=Bree+Serif',
+type: 'Serif',
+moreInfo: 'https://fonts.google.com/specimen/Bree+Serif',
+},
+
+{ name: 'Cinzel',
+url: 'https://fonts.googleapis.com/css?family=Cinzel',
+type: 'Serif',
+moreInfo: 'https://fonts.google.com/specimen/Cinzel',
+},
+
+{ name: 'Josefin Slab',
+url: 'https://fonts.googleapis.com/css?family=Josefin+Slab',
+type: 'Serif',
+moreInfo: 'https://fonts.google.com/specimen/Josefin+Slab',
+},
+
+{ name: 'Pridi',
+url: 'https://fonts.googleapis.com/css?family=Pridi',
+type: 'Serif',
+moreInfo: 'https://fonts.google.com/specimen/Pridi',
+},

@@ -1,18 +1,13 @@
 let randomFontName;
-let randomFontUrl;
-let randomFontType;
-let randomFontMoreInfo;
-let intruderPosition;
-let intruderFontName;
-let intruderFontUrl;
-let intruderFontType;
-let intruderFontMoreInfo;
-let boardClass;
+let imposterFontName;
 let fontPosition;
+let imposterPosition;
+let currentRound = 0;
+let score = 0;
 
 // fontArray array of objects with starter Serif fonts
 
-let fontArray = [
+const fontArray = [
     {
         name: 'Merriweather',
         url: 'https://fonts.googleapis.com/css?family=Merriweather',
@@ -84,85 +79,93 @@ let fontArray = [
     },
 ]
 
+let imposterFontArray = [];
+
+
 // Random font picker for "font-family" members
 
 const fontFamilyPicker = () => {
     const randomizeFont = (Math.floor(Math.random() * fontArray.length));
-    randomFontName = fontArray[randomizeFont].name;
-    randomFontUrl = fontArray[randomizeFont].url;
-    randomFontType = fontArray[randomizeFont].type;
-    randomFontMoreInfo = fontArray[randomizeFont].moreInfo;
+    let randomFontName = fontArray[randomizeFont].name;
+    let randomFontUrl = fontArray[randomizeFont].url;
+    let randomFontType = fontArray[randomizeFont].type;
+    let randomFontMoreInfo = fontArray[randomizeFont].moreInfo;
     fontArray.splice([randomizeFont], 1);
-}
+    imposterFontArray = fontArray;
 
-fontFamilyPicker();
+    // Add random "font-family" member Google Fonts stylesheet to
+    // <head> and set it to the (non-imposter) font-family members
 
-// Add random "font-family" member Google Fonts stylesheet to
-// <head> and set it to the (non-intruder) font-family members
-
-const fontFamilyFont = () => {
     document.querySelector('.main-font').setAttribute('href', randomFontUrl);
     const fontBox = document.querySelector('.fonts-box');
     fontBox.setAttribute('style', 'font-family');
     fontBox.style.fontFamily = (randomFontName);
 }
 
-fontFamilyFont();
+fontFamilyPicker();
 
-// Randomly select the intruder font and its position
+// Randomly select the imposter font and its position
 
-const intruderPicker = () => {
-    const randomizeIntruderFont = (Math.floor(Math.random() * fontArray.length));
-    intruderFontName = fontArray[randomizeIntruderFont].name;
-    intruderFontUrl = fontArray[randomizeIntruderFont].url;
-    intruderFontType = fontArray[randomizeIntruderFont].type;
-    intruderFontMoreInfo = fontArray[randomizeIntruderFont].moreInfo;
+const imposterPicker = () => {
+    const randomizeImposterFont = (Math.floor(Math.random() * imposterFontArray.length));
+    imposterFontName = imposterFontArray[randomizeImposterFont].name;
+    let imposterFontUrl = imposterFontArray[randomizeImposterFont].url;
+    let imposterFontType = imposterFontArray[randomizeImposterFont].type;
+    let imposterFontMoreInfo = imposterFontArray[randomizeImposterFont].moreInfo;
+
+    // randomize imposter font's position
+
+    imposterPosition = (Math.floor(Math.random() * 9));
+
+    // place and display imposter font
+
+    document.querySelector('.imposter-font').setAttribute('href', imposterFontUrl);
+    const imposterFontBox = document.querySelectorAll('.font-box');
+    const imposterPara = imposterFontBox.item(imposterPosition);
+    let imposterLetter = imposterPara.firstElementChild;
+    imposterLetter.setAttribute('style', 'font-family');
+    imposterLetter.style.fontFamily = (imposterFontName);
 }
 
-intruderPicker();
-
-const randomizeIntruderPosition = () => {
-    intruderPosition = (Math.floor(Math.random() * 9));
-}
-
-randomizeIntruderPosition();
-
-// Place and display intruder font
-
-const intruderFont = () => {
-    document.querySelector('.intruder-font').setAttribute('href', intruderFontUrl);
-    const intruderFontBox = document.querySelectorAll('.font-box');
-    const intruderPara = intruderFontBox.item(intruderPosition);
-    let intruderLetter = intruderPara.firstElementChild;
-    intruderLetter.setAttribute('style', 'font-family');
-    intruderLetter.style.fontFamily = (intruderFontName);
-}
-
-intruderFont();
+imposterPicker();
 
 // Register clicks on game board
 
 const boardClick = document.querySelector('.fonts-box');
+
 boardClick.addEventListener('click', fontClick);
 
 function fontClick(event) {
-    // let boardClass = event.target.getAttribute('class');
-    // // boardClassPosition = boardClass.dataset.position;
+
     const fontPosition = parseInt(event.target.dataset.position);
-    // console.log(boardClass);
-    // console.log(boardClassPosition);
     console.log(`current position: ${fontPosition}`);
-    console.log(`intruder position: ${intruderPosition}`);
-    
-// Evaluate if the clicked letter is part of the font-family
-// or an intruder font
+    console.log(`imposter position: ${imposterPosition}`);
 
-        if (fontPosition == intruderPosition) {
-            alert('You found the intruder font!');
-        } else {
-            alert('Sorry, next time!');
-        }
+    // Evaluate if the clicked letter is part of the font-family
+    // or an imposter font
 
+    if (fontPosition == imposterPosition) {
+        alert('You found the imposter font! 100 points');
+        score = score + 100;
+        reset();
+
+    } else {
+        alert('Sorry, not the imposter. No points for you.');
+        reset();
+    }
+
+}
+
+const reset = () => {
+    console.log(score);
+    randomFontName = '';
+    imposterFontName = '';
+    fontPosition;
+    imposterPosition;
+    imposterFontArray = [];
+    currentRound++;
+    fontFamilyPicker();
+    imposterPicker();
 }
 
 
