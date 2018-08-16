@@ -8,6 +8,7 @@ let intruderFontUrl;
 let intruderFontType;
 let intruderFontMoreInfo;
 let boardClass;
+let fontPosition;
 
 // fontArray array of objects with starter Serif fonts
 
@@ -144,9 +145,24 @@ intruderFont();
 const boardClick = document.querySelector('.fonts-box');
 boardClick.addEventListener('click', fontClick);
 
-function fontClick (event) {
-    const boardClass = event.target.getAttribute('class');
+function fontClick(event) {
+    // let boardClass = event.target.getAttribute('class');
+    // // boardClassPosition = boardClass.dataset.position;
     const fontPosition = parseInt(event.target.dataset.position);
-    console.log(boardClass);
-    console.log(fontPosition);
+    // console.log(boardClass);
+    // console.log(boardClassPosition);
+    console.log(`current position: ${fontPosition}`);
+    console.log(`intruder position: ${intruderPosition}`);
+    
+// Evaluate if the clicked letter is part of the font-family
+// or an intruder font
+
+        if (fontPosition == intruderPosition) {
+            alert('You found the intruder font!');
+        } else {
+            alert('Sorry, next time!');
+        }
+
 }
+
+
