@@ -2,11 +2,16 @@ let randomFontName;
 let randomFontUrl;
 let randomFontType;
 let randomFontMoreInfo;
+let intruderPosition;
+let intruderFontName;
+let intruderFontUrl;
+let intruderFontType;
+let intruderFontMoreInfo;
 
 // Testing fontArray array of objects
 // Starter Serif fonts
 
-const fontArray = [
+let fontArray = [
     {
         name: 'Merriweather',
         url: 'https://fonts.googleapis.com/css?family=Merriweather',
@@ -51,24 +56,51 @@ const fontFamilyPicker = () => {
     randomFontUrl = fontArray[randomizeFont].url;
     randomFontType = fontArray[randomizeFont].type;
     randomFontMoreInfo = fontArray[randomizeFont].moreInfo;
+    fontArray.splice([randomizeFont], 1);
 }
 
 fontFamilyPicker();
-
-// console.log(randomFontName);
-// console.log(randomFontUrl);
-// console.log(randomFontType);
-// console.log(randomFontMoreInfo);
 
 // Add random "font-family" member Google Fonts stylesheet to
 // <head> and set it to the (non-intruder) font-family members
 
 const fontFamilyFont = () => {
     document.querySelector('.main-font').setAttribute('href' , randomFontUrl);  
-    fontBox = document.querySelector('.fonts-box');
+    const fontBox = document.querySelector('.fonts-box');
     fontBox.setAttribute('style', 'font-family');
     fontBox.style.fontFamily=(randomFontName);
-    // document.querySelector('.fonts-box').setAttribute('font-family' , randomFontName);
 }
 
 fontFamilyFont();
+
+// Randomly select and display the intruder font...
+
+const intruderPicker = () => {
+    const randomizeFont = (Math.floor(Math.random() * fontArray.length));
+    intruderFontName = fontArray[randomizeFont].name;
+    intruderFontUrl = fontArray[randomizeFont].url;
+    intruderFontType = fontArray[randomizeFont].type;
+    intruderFontMoreInfo = fontArray[randomizeFont].moreInfo;
+}
+
+const randomizeIntruderPosition = () => {
+    intruderPosition = (Math.floor(Math.random() * 9));
+}
+
+randomizeIntruderPosition();
+
+const intruderFont = () => {
+    document.querySelector('.intruder-font').setAttribute('href' , randomFontUrl);  
+    const intruderFontBox = document.querySelectorAll('.font-box');
+    const intruderPara = intruderFontBox.item(intruderPosition);
+    let intruderLetter = intruderPara.firstElementChild;
+
+    // console.log(intruderPosition);
+    // console.log(intruderPara);
+
+    intruderLetter.setAttribute('style', 'font-family');
+    intruderLetter.style.fontFamily=(intruderFontName);
+
+}
+
+intruderFont();
