@@ -7,9 +7,9 @@ let intruderFontName;
 let intruderFontUrl;
 let intruderFontType;
 let intruderFontMoreInfo;
+let boardClass;
 
-// Testing fontArray array of objects
-// Starter Serif fonts
+// fontArray array of objects with starter Serif fonts
 
 let fontArray = [
     {
@@ -45,6 +45,41 @@ let fontArray = [
         url: 'https://fonts.googleapis.com/css?family=Cardo',
         type: 'Serif',
         moreInfo: 'https://fonts.google.com/specimen/Cardo',
+    },
+
+    {
+        name: 'Arvo',
+        url: 'https://fonts.googleapis.com/css?family=Arvo',
+        type: 'Serif',
+        moreInfo: 'https://fonts.google.com/specimen/Arvo',
+    },
+
+    {
+        name: 'Bree Serif',
+        url: 'https://fonts.googleapis.com/css?family=Bree+Serif',
+        type: 'Serif',
+        moreInfo: 'https://fonts.google.com/specimen/Bree+Serif',
+    },
+
+    {
+        name: 'Cinzel',
+        url: 'https://fonts.googleapis.com/css?family=Cinzel',
+        type: 'Serif',
+        moreInfo: 'https://fonts.google.com/specimen/Cinzel',
+    },
+
+    {
+        name: 'Josefin Slab',
+        url: 'https://fonts.googleapis.com/css?family=Josefin+Slab',
+        type: 'Serif',
+        moreInfo: 'https://fonts.google.com/specimen/Josefin+Slab',
+    },
+
+    {
+        name: 'Pridi',
+        url: 'https://fonts.googleapis.com/css?family=Pridi',
+        type: 'Serif',
+        moreInfo: 'https://fonts.google.com/specimen/Pridi',
     },
 ]
 
@@ -100,7 +135,18 @@ const intruderFont = () => {
     let intruderLetter = intruderPara.firstElementChild;
     intruderLetter.setAttribute('style', 'font-family');
     intruderLetter.style.fontFamily = (intruderFontName);
-
 }
 
 intruderFont();
+
+// Register clicks on game board
+
+const boardClick = document.querySelector('.fonts-box');
+boardClick.addEventListener('click', fontClick);
+
+function fontClick (event) {
+    const boardClass = event.target.getAttribute('class');
+    const fontPosition = parseInt(event.target.dataset.position);
+    console.log(boardClass);
+    console.log(fontPosition);
+}

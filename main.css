@@ -16,3 +16,7 @@
 .font-box-exclude {
     padding: 0 5px;
 }
+
+.font-pointer {
+    cursor: pointer;
+}
