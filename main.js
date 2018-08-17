@@ -82,39 +82,55 @@ const fontArray = [
     },
 ]
 
+// Welcome screen
+// adapted from: http://usefulangle.com/post/82/pure-javascript-replace-element
+
+const welcome = () => {
+    const gameBoardDiv = document.querySelector('.fonts-box');
+    const gameBoardDivParent = gameBoardDiv.parentNode;
+
+    var welcomeScreen = document.createElement('div');
+    welcomeScreen.setAttribute('class', 'welcome welcome-gradient');
+    welcomeScreen.innerHTML = `<p class="welcome-text">Find the imposter font.</p><p>BUTTON.</p>`;
+
+    gameBoardDivParent.replaceChild(welcomeScreen, gameBoardDiv);
+}
+
+// welcome();
+
 
 
 // Random font picker for "font-family" members
 
-const playGame = () =>{
+const playGame = () => {
 
     // Register clicks on game board
-    
+
     boardClick = document.querySelector('.fonts-box');
     boardClick.addEventListener('click', fontClick);
-    
+
     function fontClick(event) {
-        
+
         const fontPosition = parseInt(event.target.dataset.position);
         console.log(`current position: ${fontPosition}`);
         console.log(`imposter position: ${imposterPosition}`);
-    
+
         // Evaluate if the clicked letter is part of the font-family
         // or an imposter font
 
         // countdown();    
-        
+
         if (fontPosition === imposterPosition) {
             alert('You found the imposter font! 100 points');
-            score = score + 100;    
+            score = score + 100;
         } else {
             alert('Sorry, not the imposter. No points for you.');
         }
-    
+
         reset();
-    
+
     }
-    }
+}
 
 const fontFamilyPicker = () => {
     const randomizeFont = (Math.floor(Math.random() * fontArray.length));
@@ -127,7 +143,7 @@ const fontFamilyPicker = () => {
     let randomFontUrl = fontArray[randomizeFont].url;
     let randomFontType = fontArray[randomizeFont].type;
     let randomFontMoreInfo = fontArray[randomizeFont].moreInfo;
-    
+
     document.querySelector('.main-font').setAttribute('href', randomFontUrl);
     const fontBox = document.querySelector('.fonts-box');
     fontBox.setAttribute('style', 'font-family');
@@ -143,29 +159,29 @@ const fontFamilyPicker = () => {
 const imposterPicker = () => {
     const randomizeImposterFont = (Math.floor(Math.random() * fontArray.length));
     const imposterFontName = fontArray[randomizeImposterFont].name;
-    
-    if ( imposterFontName === chosenFont ){ 
+
+    if (imposterFontName === chosenFont) {
         imposterPicker();
-    } else { 
-    let imposterFontUrl = fontArray[randomizeImposterFont].url;
-    let imposterFontType = fontArray[randomizeImposterFont].type;
-    let imposterFontMoreInfo = fontArray[randomizeImposterFont].moreInfo;
+    } else {
+        let imposterFontUrl = fontArray[randomizeImposterFont].url;
+        let imposterFontType = fontArray[randomizeImposterFont].type;
+        let imposterFontMoreInfo = fontArray[randomizeImposterFont].moreInfo;
 
-    // randomize imposter font's position
+        // randomize imposter font's position
 
-     let randomImposter = (Math.floor(Math.random() * 9));
-     imposterPosition = randomImposter;
+        let randomImposter = (Math.floor(Math.random() * 9));
+        imposterPosition = randomImposter;
 
-    // place and display imposter font
-    const imposterFontHeadLink = document.querySelector('.imposter-font');
-    imposterFontHeadLink.setAttribute('href', imposterFontUrl);
-    const imposterFontBox = document.querySelectorAll('.font-box');
-    const imposterParagraph = imposterFontBox.item(imposterPosition);
-    imposterLetter = imposterParagraph.firstElementChild;
-    imposterLetter.setAttribute('style', 'font-family');
-    imposterLetter.style.fontFamily = (imposterFontName);
-    console.log(`imposterLetter: ${imposterLetter}`);
-    console.log(`imposter position ${imposterPosition}`);
+        // place and display imposter font
+        const imposterFontHeadLink = document.querySelector('.imposter-font');
+        imposterFontHeadLink.setAttribute('href', imposterFontUrl);
+        const imposterFontBox = document.querySelectorAll('.font-box');
+        const imposterParagraph = imposterFontBox.item(imposterPosition);
+        imposterLetter = imposterParagraph.firstElementChild;
+        imposterLetter.setAttribute('style', 'font-family');
+        imposterLetter.style.fontFamily = (imposterFontName);
+        console.log(`imposterLetter: ${imposterLetter}`);
+        console.log(`imposter position ${imposterPosition}`);
     }
 
 }
@@ -185,9 +201,9 @@ const reset = () => {
 }
 
 // for (i = 0; i < 3; i++){
- playGame();
- fontFamilyPicker();
- imposterPicker();
+playGame();
+fontFamilyPicker();
+imposterPicker();
 // }
 
 
