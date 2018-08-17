@@ -1,8 +1,11 @@
+// global variables
+
 let randomFontName;
+let chosenFont;
 let imposterLetter;
+let imposterPosition;
 let currentRound = 0;
 let score = 0;
-let imposterPosition = 0;
 
 // fontArray array of objects with starter Serif fonts
 
@@ -78,11 +81,39 @@ const fontArray = [
     },
 ]
 
-// let imposterFontArray = [];
 
-let chosenFont;
 
 // Random font picker for "font-family" members
+
+const playGame = () =>{
+
+    // Register clicks on game board
+    
+    const boardClick = document.querySelector('.fonts-box');
+    
+    boardClick.addEventListener('click', fontClick);
+    
+    function fontClick(event) {
+    
+        const fontPosition = parseInt(event.target.dataset.position);
+        console.log(`current position: ${fontPosition}`);
+        console.log(`imposter position: ${imposterPosition}`);
+    
+        // Evaluate if the clicked letter is part of the font-family
+        // or an imposter font
+    
+        if (fontPosition === imposterPosition) {
+            alert('You found the imposter font! 100 points');
+            score = score + 100;
+    
+        } else {
+            alert('Sorry, not the imposter. No points for you.');
+        }
+    
+        reset();
+    
+    }
+    }
 
 const fontFamilyPicker = () => {
     const randomizeFont = (Math.floor(Math.random() * fontArray.length));
@@ -104,13 +135,13 @@ const fontFamilyPicker = () => {
     return chosenFont;
 }
 
-fontFamilyPicker();
+// fontFamilyPicker();
 
 // Randomly select the imposter font and its position
 
 const imposterPicker = () => {
     const randomizeImposterFont = (Math.floor(Math.random() * fontArray.length));
-    imposterFontName = fontArray[randomizeImposterFont].name;
+    const imposterFontName = fontArray[randomizeImposterFont].name;
     
     if ( imposterFontName === chosenFont ){ 
         imposterPicker();
@@ -125,8 +156,8 @@ const imposterPicker = () => {
      imposterPosition = randomImposter;
 
     // place and display imposter font
-
-    document.querySelector('.imposter-font').setAttribute('href', imposterFontUrl);
+    const imposterFontHeadLink = document.querySelector('.imposter-font');
+    imposterFontHeadLink.setAttribute('href', imposterFontUrl);
     const imposterFontBox = document.querySelectorAll('.font-box');
     const imposterParagraph = imposterFontBox.item(imposterPosition);
     imposterLetter = imposterParagraph.firstElementChild;
@@ -138,47 +169,21 @@ const imposterPicker = () => {
 
 }
 
-imposterPicker();
-
-// Register clicks on game board
-
-const boardClick = document.querySelector('.fonts-box');
-
-boardClick.addEventListener('click', fontClick);
-
-function fontClick(event) {
-
-    const fontPosition = parseInt(event.target.dataset.position);
-    console.log(`current position: ${fontPosition}`);
-    console.log(`imposter position: ${imposterPosition}`);
-
-    // Evaluate if the clicked letter is part of the font-family
-    // or an imposter font
-
-    if (fontPosition === imposterPosition) {
-        alert('You found the imposter font! 100 points');
-        score = score + 100;
-
-    } else {
-        alert('Sorry, not the imposter. No points for you.');
-    }
-
-    reset();
-
-}
-
-// const resetImposterArray = () =>{
-//     imposterFontArray.length=0;
-// }
+// imposterPicker();
 
 const reset = () => {
     console.log(score);
     console.log(currentRound);
     currentRound++;
     imposterLetter.removeAttribute('style');
+    imposterPosition = undefined;
 
     fontFamilyPicker();
     imposterPicker();
 }
 
-
+// for (i = 0; i < 3; i++){
+ playGame();
+ fontFamilyPicker();
+ imposterPicker();
+// }
