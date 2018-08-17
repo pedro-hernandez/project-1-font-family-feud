@@ -1,9 +1,8 @@
 let randomFontName;
-let imposterFontName;
-let fontPosition;
-let imposterPosition;
+let imposterLetter;
 let currentRound = 0;
 let score = 0;
+let imposterPosition = 0;
 
 // fontArray array of objects with starter Serif fonts
 
@@ -79,27 +78,30 @@ const fontArray = [
     },
 ]
 
-let imposterFontArray = [];
+// let imposterFontArray = [];
 
+let chosenFont;
 
 // Random font picker for "font-family" members
 
 const fontFamilyPicker = () => {
     const randomizeFont = (Math.floor(Math.random() * fontArray.length));
     let randomFontName = fontArray[randomizeFont].name;
+    chosenFont = randomFontName;
+
+    console.log(`font family name: ${chosenFont}`);
+
+
     let randomFontUrl = fontArray[randomizeFont].url;
     let randomFontType = fontArray[randomizeFont].type;
     let randomFontMoreInfo = fontArray[randomizeFont].moreInfo;
-    fontArray.splice([randomizeFont], 1);
-    imposterFontArray = fontArray;
-
-    // Add random "font-family" member Google Fonts stylesheet to
-    // <head> and set it to the (non-imposter) font-family members
-
+    
     document.querySelector('.main-font').setAttribute('href', randomFontUrl);
     const fontBox = document.querySelector('.fonts-box');
     fontBox.setAttribute('style', 'font-family');
     fontBox.style.fontFamily = (randomFontName);
+
+    return chosenFont;
 }
 
 fontFamilyPicker();
@@ -107,24 +109,33 @@ fontFamilyPicker();
 // Randomly select the imposter font and its position
 
 const imposterPicker = () => {
-    const randomizeImposterFont = (Math.floor(Math.random() * imposterFontArray.length));
-    imposterFontName = imposterFontArray[randomizeImposterFont].name;
-    let imposterFontUrl = imposterFontArray[randomizeImposterFont].url;
-    let imposterFontType = imposterFontArray[randomizeImposterFont].type;
-    let imposterFontMoreInfo = imposterFontArray[randomizeImposterFont].moreInfo;
+    const randomizeImposterFont = (Math.floor(Math.random() * fontArray.length));
+    imposterFontName = fontArray[randomizeImposterFont].name;
+    
+    if ( imposterFontName === chosenFont ){ 
+        imposterPicker();
+    } else { 
+    let imposterFontUrl = fontArray[randomizeImposterFont].url;
+    let imposterFontType = fontArray[randomizeImposterFont].type;
+    let imposterFontMoreInfo = fontArray[randomizeImposterFont].moreInfo;
 
     // randomize imposter font's position
 
-    imposterPosition = (Math.floor(Math.random() * 9));
+     let randomImposter = (Math.floor(Math.random() * 9));
+     imposterPosition = randomImposter;
 
     // place and display imposter font
 
     document.querySelector('.imposter-font').setAttribute('href', imposterFontUrl);
     const imposterFontBox = document.querySelectorAll('.font-box');
-    const imposterPara = imposterFontBox.item(imposterPosition);
-    let imposterLetter = imposterPara.firstElementChild;
+    const imposterParagraph = imposterFontBox.item(imposterPosition);
+    imposterLetter = imposterParagraph.firstElementChild;
     imposterLetter.setAttribute('style', 'font-family');
     imposterLetter.style.fontFamily = (imposterFontName);
+    console.log(`imposterLetter: ${imposterLetter}`);
+    console.log(`imposter position ${imposterPosition}`);
+    }
+
 }
 
 imposterPicker();
@@ -144,26 +155,28 @@ function fontClick(event) {
     // Evaluate if the clicked letter is part of the font-family
     // or an imposter font
 
-    if (fontPosition == imposterPosition) {
+    if (fontPosition === imposterPosition) {
         alert('You found the imposter font! 100 points');
         score = score + 100;
-        reset();
 
     } else {
         alert('Sorry, not the imposter. No points for you.');
-        reset();
     }
+
+    reset();
 
 }
 
+// const resetImposterArray = () =>{
+//     imposterFontArray.length=0;
+// }
+
 const reset = () => {
     console.log(score);
-    randomFontName = '';
-    imposterFontName = '';
-    fontPosition;
-    imposterPosition;
-    imposterFontArray = [];
+    console.log(currentRound);
     currentRound++;
+    imposterLetter.removeAttribute('style');
+
     fontFamilyPicker();
     imposterPicker();
 }
