@@ -4,6 +4,7 @@ let randomFontName;
 let chosenFont;
 let imposterLetter;
 let imposterPosition;
+let boardClick;
 let currentRound = 0;
 let score = 0;
 
@@ -89,23 +90,23 @@ const playGame = () =>{
 
     // Register clicks on game board
     
-    const boardClick = document.querySelector('.fonts-box');
-    
+    boardClick = document.querySelector('.fonts-box');
     boardClick.addEventListener('click', fontClick);
     
     function fontClick(event) {
-    
+        
         const fontPosition = parseInt(event.target.dataset.position);
         console.log(`current position: ${fontPosition}`);
         console.log(`imposter position: ${imposterPosition}`);
     
         // Evaluate if the clicked letter is part of the font-family
         // or an imposter font
-    
+
+        // countdown();    
+        
         if (fontPosition === imposterPosition) {
             alert('You found the imposter font! 100 points');
-            score = score + 100;
-    
+            score = score + 100;    
         } else {
             alert('Sorry, not the imposter. No points for you.');
         }
@@ -174,10 +175,11 @@ const imposterPicker = () => {
 const reset = () => {
     console.log(score);
     console.log(currentRound);
+    // boardClick.addEventListener('click', fontClick);
+
     currentRound++;
     imposterLetter.removeAttribute('style');
     imposterPosition = undefined;
-
     fontFamilyPicker();
     imposterPicker();
 }
@@ -186,4 +188,27 @@ const reset = () => {
  playGame();
  fontFamilyPicker();
  imposterPicker();
+// }
+
+
+// *** ASK ***
+// possible five-second countdown
+
+// Adapted from: https://stackoverflow.com/questions/4435776/simple-clock-that-counts-down-from-30-seconds-and-executes-a-function-afterward
+
+// var secondsLeft = 5;
+// var timerDiv = document.querySelector('.timer');
+
+// var timerId = setInterval(countdown, 1000);
+
+// function countdown() {
+//   if (secondsLeft == 0) {
+//     clearTimeout(timerId);
+//     timerDiv.innerHTML = `</p>Time's up.</p>`;
+//     // boardClick.removeEventListener('click', fontClick);
+//     reset();
+//   } else {
+//     timerDiv.innerHTML = `</p> Time remaining:</br>${secondsLeft}</p>`;
+//     secondsLeft--;
+//   }
 // }
