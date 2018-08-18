@@ -119,61 +119,14 @@ const gameBoardLoad = () => {
 
 const playGame = () => {
 
+    currentRound = 0;
+
     // random font picker for "font-family" members
 
-    const randomizeFont = (Math.floor(Math.random() * fontArray.length));
-    randomFontName = fontArray[randomizeFont].name;
-    chosenFont = randomFontName;
-
-    console.log(`font family name: ${chosenFont}`);
-
-
-    const randomFontUrl = fontArray[randomizeFont].url;
-    const randomFontType = fontArray[randomizeFont].type;
-    const randomFontMoreInfo = fontArray[randomizeFont].moreInfo;
-
-    document.querySelector('.main-font').setAttribute('href', randomFontUrl);
-    const fontBox = document.querySelector('.fonts-box');
-    fontBox.setAttribute('style', 'font-family');
-    fontBox.style.fontFamily = (randomFontName);
-
-    // random font picker for imposter font
+    mainFont();
 
     // Randomly selects another imposter font if the same "font-family" font and 
     // imposter fonts are selected
-
-    const imposterPicker = () => {
-
-        let randomizeImposterFont = (Math.floor(Math.random() * fontArray.length));
-        imposterFontName = fontArray[randomizeImposterFont].name;
-
-        if (imposterFontName === chosenFont) {
-            imposterPicker();
-        } else {
-            console.log(`imposter font name: ${imposterFontName}`);
-
-            let imposterFontUrl = fontArray[randomizeImposterFont].url;
-            let imposterFontType = fontArray[randomizeImposterFont].type;
-            let imposterFontMoreInfo = fontArray[randomizeImposterFont].moreInfo;
-
-            // randomize imposter font's position
-
-            let randomImposter = (Math.floor(Math.random() * 9));
-            imposterPosition = randomImposter;
-
-            // place and display imposter font
-            const imposterFontHeadLink = document.querySelector('.imposter-font');
-            imposterFontHeadLink.setAttribute('href', imposterFontUrl);
-            const imposterFontBox = document.querySelectorAll('.font-box');
-            const imposterParagraph = imposterFontBox.item(imposterPosition);
-            imposterLetter = imposterParagraph.firstElementChild;
-            imposterLetter.setAttribute('style', 'font-family');
-            imposterLetter.style.fontFamily = (imposterFontName);
-            // console.log(`imposterLetter: ${imposterLetter}`);
-            // console.log(`imposter position ${imposterPosition}`);
-        }
-
-    }
 
     imposterPicker();
 
@@ -204,17 +157,71 @@ const playGame = () => {
         roundTracker();
 
     }
+
+    roundTracker();
+}
+
+const mainFont = () => {
+    const randomizeFont = (Math.floor(Math.random() * fontArray.length));
+    randomFontName = fontArray[randomizeFont].name;
+    chosenFont = randomFontName;
+
+    console.log(`font family name: ${chosenFont}`);
+
+
+    const randomFontUrl = fontArray[randomizeFont].url;
+    const randomFontType = fontArray[randomizeFont].type;
+    const randomFontMoreInfo = fontArray[randomizeFont].moreInfo;
+
+    document.querySelector('.main-font').setAttribute('href', randomFontUrl);
+    const fontBox = document.querySelector('.fonts-box');
+    fontBox.setAttribute('style', 'font-family');
+    fontBox.style.fontFamily = (randomFontName);
+}
+
+const imposterPicker = () => {
+
+    let randomizeImposterFont = (Math.floor(Math.random() * fontArray.length));
+    imposterFontName = fontArray[randomizeImposterFont].name;
+
+    if (imposterFontName === chosenFont) {
+        imposterPicker();
+    } else {
+        console.log(`imposter font name: ${imposterFontName}`);
+
+        let imposterFontUrl = fontArray[randomizeImposterFont].url;
+        let imposterFontType = fontArray[randomizeImposterFont].type;
+        let imposterFontMoreInfo = fontArray[randomizeImposterFont].moreInfo;
+
+        // randomize imposter font's position
+
+        let randomImposter = (Math.floor(Math.random() * 9));
+        imposterPosition = randomImposter;
+
+        // place and display imposter font
+        const imposterFontHeadLink = document.querySelector('.imposter-font');
+        imposterFontHeadLink.setAttribute('href', imposterFontUrl);
+        const imposterFontBox = document.querySelectorAll('.font-box');
+        const imposterParagraph = imposterFontBox.item(imposterPosition);
+        imposterLetter = imposterParagraph.firstElementChild;
+        imposterLetter.setAttribute('style', 'font-family');
+        imposterLetter.style.fontFamily = (imposterFontName);
+        // console.log(`imposterLetter: ${imposterLetter}`);
+        // console.log(`imposter position ${imposterPosition}`);
+    }
+
 }
 
 // resets game board, tallies up score and increments round
 
 const reset = () => {
-    console.log(score);
-    console.log(currentRound);
+    console.log(`Current Score: ${score}`);
+    console.log(`Current Round: ${currentRound}`);
     currentRound++;
     imposterPosition;
     imposterLetter.removeAttribute('style');
-    playGame();
+    mainFont();
+    imposterPicker();
 }
 
 // tracks rounds and generates outcomes screen
