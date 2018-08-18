@@ -41,7 +41,13 @@ header h1 {
         #616060,
         #2b2a2a
     );
-}
+}  
+
+/* .font-box-gradient-ani {
+
+    animation: color-change 5s linear infinite alternate;
+
+} */
 
 .font-box {
     padding: 0 5px; 

@@ -4,6 +4,7 @@ let randomFontName;
 let chosenFont;
 let imposterLetter;
 let imposterPosition;
+let imposterFontName;
 let boardClick;
 let currentRound = 0;
 let score = 0;
@@ -82,7 +83,7 @@ const fontArray = [
     },
 ]
 
-// Welcome screen
+// welcome screen
 // adapted from: http://usefulangle.com/post/82/pure-javascript-replace-element
 
 const welcome = () => {
@@ -98,21 +99,94 @@ const welcome = () => {
 
 // welcome();
 
+// Load main game board
 
+const gameBoardLoad = () => {
+    const welcomeScreenDiv = document.querySelector('.welcome');
+    const welcomeScreenDivParent = welcomeScreenDiv.parentNode;
 
-// Random font picker for "font-family" members
+    const gameBoard = document.createElement('div');
+    gameBoard.setAttribute('class', 'fonts-box fonts-box-gradient');
+
+    welcomeScreenDivParent.replaceChild(gameBoard, welcomeScreenDiv);
+}
+
+// gameBoardLoad();
+
+// welcome screen button eventListener to
+// switch to main board  - CODE HERE
+
 
 const playGame = () => {
+
+    // random font picker for "font-family" members
+
+    const randomizeFont = (Math.floor(Math.random() * fontArray.length));
+    randomFontName = fontArray[randomizeFont].name;
+    chosenFont = randomFontName;
+
+    console.log(`font family name: ${chosenFont}`);
+
+
+    const randomFontUrl = fontArray[randomizeFont].url;
+    const randomFontType = fontArray[randomizeFont].type;
+    const randomFontMoreInfo = fontArray[randomizeFont].moreInfo;
+
+    document.querySelector('.main-font').setAttribute('href', randomFontUrl);
+    const fontBox = document.querySelector('.fonts-box');
+    fontBox.setAttribute('style', 'font-family');
+    fontBox.style.fontFamily = (randomFontName);
+
+    // random font picker for imposter font
+
+    // Randomly selects another imposter font if the same "font-family" font and 
+    // imposter fonts are selected
+
+    const imposterPicker = () => {
+
+        let randomizeImposterFont = (Math.floor(Math.random() * fontArray.length));
+        imposterFontName = fontArray[randomizeImposterFont].name;
+
+        if (imposterFontName === chosenFont) {
+            imposterPicker();
+        } else {
+            console.log(`imposter font name: ${imposterFontName}`);
+
+            let imposterFontUrl = fontArray[randomizeImposterFont].url;
+            let imposterFontType = fontArray[randomizeImposterFont].type;
+            let imposterFontMoreInfo = fontArray[randomizeImposterFont].moreInfo;
+
+            // randomize imposter font's position
+
+            let randomImposter = (Math.floor(Math.random() * 9));
+            imposterPosition = randomImposter;
+
+            // place and display imposter font
+            const imposterFontHeadLink = document.querySelector('.imposter-font');
+            imposterFontHeadLink.setAttribute('href', imposterFontUrl);
+            const imposterFontBox = document.querySelectorAll('.font-box');
+            const imposterParagraph = imposterFontBox.item(imposterPosition);
+            imposterLetter = imposterParagraph.firstElementChild;
+            imposterLetter.setAttribute('style', 'font-family');
+            imposterLetter.style.fontFamily = (imposterFontName);
+            // console.log(`imposterLetter: ${imposterLetter}`);
+            // console.log(`imposter position ${imposterPosition}`);
+        }
+
+    }
+
+    imposterPicker();
 
     // Register clicks on game board
 
     boardClick = document.querySelector('.fonts-box');
+
     boardClick.addEventListener('click', fontClick);
 
     function fontClick(event) {
 
         const fontPosition = parseInt(event.target.dataset.position);
-        console.log(`current position: ${fontPosition}`);
+        console.log(`position clicked: ${fontPosition}`);
         console.log(`imposter position: ${imposterPosition}`);
 
         // Evaluate if the clicked letter is part of the font-family
@@ -122,109 +196,42 @@ const playGame = () => {
 
         if (fontPosition === imposterPosition) {
             alert('You found the imposter font! 100 points');
-            score = score + 100;
+            score = score++;
         } else {
             alert('Sorry, not the imposter. No points for you.');
         }
 
-        reset();
+        roundTracker();
 
     }
 }
 
-const fontFamilyPicker = () => {
-    const randomizeFont = (Math.floor(Math.random() * fontArray.length));
-    let randomFontName = fontArray[randomizeFont].name;
-    chosenFont = randomFontName;
-
-    console.log(`font family name: ${chosenFont}`);
-
-
-    let randomFontUrl = fontArray[randomizeFont].url;
-    let randomFontType = fontArray[randomizeFont].type;
-    let randomFontMoreInfo = fontArray[randomizeFont].moreInfo;
-
-    document.querySelector('.main-font').setAttribute('href', randomFontUrl);
-    const fontBox = document.querySelector('.fonts-box');
-    fontBox.setAttribute('style', 'font-family');
-    fontBox.style.fontFamily = (randomFontName);
-
-    return chosenFont;
-}
-
-// fontFamilyPicker();
-
-// Randomly select the imposter font and its position
-
-const imposterPicker = () => {
-    const randomizeImposterFont = (Math.floor(Math.random() * fontArray.length));
-    const imposterFontName = fontArray[randomizeImposterFont].name;
-
-    if (imposterFontName === chosenFont) {
-        imposterPicker();
-    } else {
-        let imposterFontUrl = fontArray[randomizeImposterFont].url;
-        let imposterFontType = fontArray[randomizeImposterFont].type;
-        let imposterFontMoreInfo = fontArray[randomizeImposterFont].moreInfo;
-
-        // randomize imposter font's position
-
-        let randomImposter = (Math.floor(Math.random() * 9));
-        imposterPosition = randomImposter;
-
-        // place and display imposter font
-        const imposterFontHeadLink = document.querySelector('.imposter-font');
-        imposterFontHeadLink.setAttribute('href', imposterFontUrl);
-        const imposterFontBox = document.querySelectorAll('.font-box');
-        const imposterParagraph = imposterFontBox.item(imposterPosition);
-        imposterLetter = imposterParagraph.firstElementChild;
-        imposterLetter.setAttribute('style', 'font-family');
-        imposterLetter.style.fontFamily = (imposterFontName);
-        console.log(`imposterLetter: ${imposterLetter}`);
-        console.log(`imposter position ${imposterPosition}`);
-    }
-
-}
-
-// imposterPicker();
+// resets game board, tallies up score and increments round
 
 const reset = () => {
     console.log(score);
     console.log(currentRound);
-    // boardClick.addEventListener('click', fontClick);
-
     currentRound++;
+    imposterPosition;
     imposterLetter.removeAttribute('style');
-    imposterPosition = undefined;
-    fontFamilyPicker();
-    imposterPicker();
+    playGame();
 }
 
-// for (i = 0; i < 3; i++){
+// tracks rounds and generates outcomes screen
+
+const roundTracker = () => {
+    if (currentRound < 5) {
+        reset();
+    } else {
+        const gameBoardDiv = document.querySelector('.fonts-box');
+        const gameBoardDivParent = gameBoardDiv.parentNode;
+
+        var welcomeScreen = document.createElement('div');
+        welcomeScreen.setAttribute('class', 'welcome welcome-gradient');
+        welcomeScreen.innerHTML = `<p class="welcome-text">You have correctly identified ${score} out of 5 imposter fonts.</p> <p>Play again?</p> <p>BUTTON</p>`;
+
+        gameBoardDivParent.replaceChild(welcomeScreen, gameBoardDiv);
+    }
+}
+
 playGame();
-fontFamilyPicker();
-imposterPicker();
-// }
-
-
-// *** ASK ***
-// possible five-second countdown
-
-// Adapted from: https://stackoverflow.com/questions/4435776/simple-clock-that-counts-down-from-30-seconds-and-executes-a-function-afterward
-
-// var secondsLeft = 5;
-// var timerDiv = document.querySelector('.timer');
-
-// var timerId = setInterval(countdown, 1000);
-
-// function countdown() {
-//   if (secondsLeft == 0) {
-//     clearTimeout(timerId);
-//     timerDiv.innerHTML = `</p>Time's up.</p>`;
-//     // boardClick.removeEventListener('click', fontClick);
-//     reset();
-//   } else {
-//     timerDiv.innerHTML = `</p> Time remaining:</br>${secondsLeft}</p>`;
-//     secondsLeft--;
-//   }
-// }
