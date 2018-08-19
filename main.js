@@ -2,6 +2,7 @@
 
 let fontBoxHide;
 let welcomeDiv;
+let welcomeParagraph;
 let randomFontName;
 let chosenFont;
 let imposterLetter;
@@ -10,6 +11,7 @@ let imposterFontName;
 let boardClick;
 let currentRound;
 let score = 0;
+let resultsScreen;
 
 // fontArray array of objects with starter Serif fonts
 
@@ -88,8 +90,6 @@ const fontArray = [
 const welcome = () => {
 
     fontBoxHide = document.querySelector('.fonts-box');
-    console.log(fontBoxHide);
-
     fontBoxHide.style.display = "none";
 
     welcomeDiv = document.querySelector('.welcome');
@@ -97,7 +97,7 @@ const welcome = () => {
 
     // var welcomeScreen = document.createElement('div');
     // welcomeScreen.setAttribute('class', 'welcome welcome-gradient');
-    let welcomeParagraph = document.createElement('p');
+    welcomeParagraph = document.createElement('p');
     welcomeParagraph = welcomeDiv.appendChild(welcomeParagraph);
     welcomeParagraph.innerHTML = `<p class="welcome-text">Find the imposter font. Click to play.</p>`;
 
@@ -236,13 +236,57 @@ const roundTracker = () => {
     if (currentRound < 5) {
         reset();
     } else {
-        const gameBoardDiv = document.querySelector('.fonts-box');
-        const gameBoardDivParent = gameBoardDiv.parentNode;
+        results();
+        // const gameBoardDiv = document.querySelector('.fonts-box');
+        // const gameBoardDivParent = gameBoardDiv.parentNode;
 
-        let welcomeScreen = document.createElement('div');
-        welcomeScreen.setAttribute('class', 'welcome welcome-gradient');
-        welcomeScreen.innerHTML = `<p class="welcome-text">You have correctly identified ${score} out of 5 imposter fonts.</p> <p>Play again?</p> <p>BUTTON</p>`;
+        // let resultsScreen = document.createElement('div');
+        // resultsScreen.setAttribute('class', 'welcome welcome-gradient');
+        // resultsScreen.style.display = "block";
 
-        gameBoardDivParent.replaceChild(welcomeScreen, gameBoardDiv);
+
+        // const resultsText = document.createElement('p');
+        // resultsScreen.appendChild(resultsText);
+
+        // resultsText.innerHTML = `You have correctly identified ${score} out of 5 imposter fonts.<br>Click to play again.`;
+
+        // gameBoardDivParent.replaceChild(resultsScreen, gameBoardDiv);
+
+        // resultsText.addEventListener('click', function () {
+        //     removeResults();
+        // });        
     }
+}
+
+const results = () => {
+
+    fontBoxHide = document.querySelector('.fonts-box');
+    fontBoxHide.style.display = "none";
+
+    resultsScreen = document.querySelector('.welcome');
+    resultsScreen.style.display = "block";
+
+    welcomeParagraph.style.display = "none";
+
+    // const gameBoardDivParent = gameBoardDiv.parentNode;
+
+    // var welcomeScreen = document.createElement('div');
+    // welcomeScreen.setAttribute('class', 'welcome welcome-gradient');
+    let resultsText = document.createElement('p');
+    resultsText = resultsScreen.appendChild(resultsText);
+    resultsText.innerHTML = `You have correctly identified ${score} out of 5 imposter fonts.<br>Click to play again.`;
+
+    // gameBoardDivParent.replaceChild(welcomeScreen, gameBoardDiv);
+
+
+    resultsText.addEventListener('click', function () {
+        removeResults();
+    });
+}
+
+const removeResults = () => {
+
+    resultsScreen.style.display = "none";
+    playGame();
+
 }

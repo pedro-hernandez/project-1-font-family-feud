@@ -79,13 +79,10 @@ header h1 {
     margin: 0px 0 auto;
     padding: 20px 0 0 0;
     text-align: center;
-    }
-
-.welcome-text {
     font-family: 'Crimson Text', serif;
-    font-size: 30px;
+    font-size: 40px;
     color: #c2c1c1;
-}
+    }
 
 .welcome p {
     cursor: pointer
