@@ -1,12 +1,14 @@
 // global variables
 
+let fontBoxHide;
+let welcomeDiv;
 let randomFontName;
 let chosenFont;
 let imposterLetter;
 let imposterPosition;
 let imposterFontName;
 let boardClick;
-let currentRound = 0;
+let currentRound;
 let score = 0;
 
 // fontArray array of objects with starter Serif fonts
@@ -83,43 +85,45 @@ const fontArray = [
     },
 ]
 
-// welcome screen
-// adapted from: http://usefulangle.com/post/82/pure-javascript-replace-element
-
 const welcome = () => {
-    const gameBoardDiv = document.querySelector('.fonts-box');
-    const gameBoardDivParent = gameBoardDiv.parentNode;
 
-    var welcomeScreen = document.createElement('div');
-    welcomeScreen.setAttribute('class', 'welcome welcome-gradient');
-    welcomeScreen.innerHTML = `<p class="welcome-text">Find the imposter font.</p><p>BUTTON.</p>`;
+    fontBoxHide = document.querySelector('.fonts-box');
+    console.log(fontBoxHide);
 
-    gameBoardDivParent.replaceChild(welcomeScreen, gameBoardDiv);
+    fontBoxHide.style.display = "none";
+
+    welcomeDiv = document.querySelector('.welcome');
+    // const gameBoardDivParent = gameBoardDiv.parentNode;
+
+    // var welcomeScreen = document.createElement('div');
+    // welcomeScreen.setAttribute('class', 'welcome welcome-gradient');
+    let welcomeParagraph = document.createElement('p');
+    welcomeParagraph = welcomeDiv.appendChild(welcomeParagraph);
+    welcomeParagraph.innerHTML = `<p class="welcome-text">Find the imposter font. Click to play.</p>`;
+
+    // gameBoardDivParent.replaceChild(welcomeScreen, gameBoardDiv);
+
+
+    welcomeParagraph.addEventListener('click', function () {
+        removeWelcome();
+    });
 }
 
-// welcome();
+welcome();
 
-// Load main game board
+// removes welcome screen and starts game
 
-const gameBoardLoad = () => {
-    const welcomeScreenDiv = document.querySelector('.welcome');
-    const welcomeScreenDivParent = welcomeScreenDiv.parentNode;
+const removeWelcome = () => {
 
-    const gameBoard = document.createElement('div');
-    gameBoard.setAttribute('class', 'fonts-box fonts-box-gradient');
+    welcomeDiv.style.display = "none";
+    playGame();
 
-    welcomeScreenDivParent.replaceChild(gameBoard, welcomeScreenDiv);
 }
-
-// gameBoardLoad();
-
-// welcome screen button eventListener to
-// switch to main board  - CODE HERE
-
 
 const playGame = () => {
 
     currentRound = 0;
+    score = 0;
 
     // random font picker for "font-family" members
 
@@ -149,7 +153,9 @@ const playGame = () => {
 
         if (fontPosition === imposterPosition) {
             alert('You found the imposter font! 100 points');
-            score = score++;
+            score = score + 1;
+            console.log(`score: ${score}`);
+
         } else {
             alert('Sorry, not the imposter. No points for you.');
         }
@@ -220,8 +226,8 @@ const reset = () => {
     currentRound++;
     imposterPosition;
     imposterLetter.removeAttribute('style');
-    mainFont();
-    imposterPicker();
+    setInterval(mainFont(), 1000);
+    setInterval(imposterPicker(), 1000);
 }
 
 // tracks rounds and generates outcomes screen
@@ -233,12 +239,10 @@ const roundTracker = () => {
         const gameBoardDiv = document.querySelector('.fonts-box');
         const gameBoardDivParent = gameBoardDiv.parentNode;
 
-        var welcomeScreen = document.createElement('div');
+        let welcomeScreen = document.createElement('div');
         welcomeScreen.setAttribute('class', 'welcome welcome-gradient');
         welcomeScreen.innerHTML = `<p class="welcome-text">You have correctly identified ${score} out of 5 imposter fonts.</p> <p>Play again?</p> <p>BUTTON</p>`;
 
         gameBoardDivParent.replaceChild(welcomeScreen, gameBoardDiv);
     }
 }
-
-playGame();
