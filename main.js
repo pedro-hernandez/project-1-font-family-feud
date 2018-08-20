@@ -10,11 +10,13 @@ let welcomeParagraph;
 
 let randomFontName;
 let randomFontUrl;
+let randomFontBy;
 let randomFontType;
 let randomFontMoreInfo;
 let chosenFont;
 
 let imposterFontUrl;
+let imposterFontBy;
 let imposterFontType;
 let imposterFontMoreInfo;
 let imposterLetter;
@@ -35,12 +37,12 @@ let fontBy = document.querySelector('.font-by');
 let fontType = document.querySelector('.font-type');
 let fontUrl = document.querySelector('.font-url');
 let imposterFont = document.querySelector('.imposter-font-name');
-let rightPickDiv;
-let wrongPickDiv;
 let imposterName = document.querySelector('.imposter-name');
 let imposterBy = document.querySelector('.imposter-by');
 let imposterType = document.querySelector('.imposter-type');
 let imposterUrl = document.querySelector('.imposter-url');
+let rightPickDiv;
+let wrongPickDiv;
 let resultsText;
 
 // round and score tracking
@@ -51,10 +53,10 @@ let score = 0;
 const welcome = () => {
 
     fontBoxHide = document.querySelector('.fonts-box');
-    fontBoxHide.style.display = "none";
+    fontBoxHide.style.display = 'none';
 
     showInfo = document.querySelector('.show-info');
-    showInfo.style.display = "none";
+    showInfo.style.display = 'none';
 
     welcomeDiv = document.querySelector('.welcome');
     welcomeParagraph = document.createElement('p');
@@ -124,6 +126,9 @@ const mainFont = () => {
     randomFontName = fontArray[randomizeFont].name;
     chosenFont = randomFontName;
 
+    randomFontBy = fontArray[randomizeFont].creator;
+    console.log(randomFontBy);
+
     randomFontUrl = fontArray[randomizeFont].url;
     randomFontType = fontArray[randomizeFont].type;
     randomFontMoreInfo = fontArray[randomizeFont].moreInfo;
@@ -142,6 +147,8 @@ const imposterPicker = () => {
     if (imposterFontName === chosenFont) {
         imposterPicker();
     } else {
+        imposterFontBy = fontArray[randomizeImposterFont].creator;
+        console.log(imposterFontBy);
         imposterFontUrl = fontArray[randomizeImposterFont].url;
         imposterFontType = fontArray[randomizeImposterFont].type;
         imposterFontMoreInfo = fontArray[randomizeImposterFont].moreInfo;
@@ -195,12 +202,12 @@ const showInfoPane = () => {
     button.addEventListener('click', roundTracker);
 
     randomFont.innerHTML = `<span>font-family</span>: ${randomFontName}`;
-    fontBy.innerHTML = `creator:`;
+    fontBy.innerHTML = `creator: ${randomFontBy}`;
     fontType.innerHTML = `type: ${randomFontType}`;
     fontUrl.innerHTML = `more info: <a href="${randomFontMoreInfo}" target="_blank">${randomFontMoreInfo}</a>`;
     imposterFont.innerHTML = `<span>imposter font</span>: ${imposterFontName}`;
-    // imposterName.innerHTML = `${imposterFontName}`;
-    imposterBy.innerHTML = `by:`;
+    imposterFontName.innerHTML = `${imposterFontName}`;
+    imposterBy.innerHTML = `creator: ${imposterFontBy}`;
     imposterType.innerHTML = `type: ${imposterFontType}`;
     imposterUrl.innerHTML = `more info: <a href="${imposterFontMoreInfo}" target="_blank">${imposterFontMoreInfo}</a>`;
 
@@ -243,7 +250,7 @@ const results = () => {
 
 const removeResults = () => {
 
-    resultsScreen.style.display = "none";
+    resultsScreen.style.display = 'none';
     score = 0;
     currentRound = 0;
     resultsText.remove();
@@ -275,6 +282,7 @@ const fontArray = [
     {
         name: 'Merriweather',
         url: 'https://fonts.googleapis.com/css?family=Merriweather',
+        creator: 'Sorkin Type',
         type: 'Serif',
         moreInfo: 'https://fonts.google.com/specimen/Merriweather'
     },
@@ -282,6 +290,7 @@ const fontArray = [
     {
         name: 'Roboto Slab',
         url: 'https://fonts.googleapis.com/css?family=Roboto+Slab',
+        creator: 'Christian Robertson',
         type: 'Serif',
         moreInfo: 'https://fonts.google.com/specimen/Roboto+Slab',
     },
@@ -289,6 +298,7 @@ const fontArray = [
     {
         name: 'Playfair Display',
         url: 'https://fonts.googleapis.com/css?family=Playfair+Display',
+        creator: 'Claus Eggers Sørensen',
         type: 'Serif',
         moreInfo: 'https://fonts.google.com/specimen/Playfair+Display',
     },
@@ -296,6 +306,7 @@ const fontArray = [
     {
         name: 'Source Serif Pro',
         url: 'https://fonts.googleapis.com/css?family=Source+Serif+Pro',
+        creator: 'Frank Grießhammer',
         type: 'Serif',
         moreInfo: 'https://fonts.google.com/specimen/Source+Serif+Pro',
     },
@@ -303,6 +314,7 @@ const fontArray = [
     {
         name: 'Cardo',
         url: 'https://fonts.googleapis.com/css?family=Cardo',
+        creator: 'David Perry',
         type: 'Serif',
         moreInfo: 'https://fonts.google.com/specimen/Cardo',
     },
@@ -310,6 +322,7 @@ const fontArray = [
     {
         name: 'Arvo',
         url: 'https://fonts.googleapis.com/css?family=Arvo',
+        creator: 'Anton Koovit',
         type: 'Serif',
         moreInfo: 'https://fonts.google.com/specimen/Arvo',
     },
@@ -317,6 +330,7 @@ const fontArray = [
     {
         name: 'Bree Serif',
         url: 'https://fonts.googleapis.com/css?family=Bree+Serif',
+        creator: 'TypeTogether',
         type: 'Serif',
         moreInfo: 'https://fonts.google.com/specimen/Bree+Serif',
     },
@@ -324,6 +338,7 @@ const fontArray = [
     {
         name: 'Cinzel',
         url: 'https://fonts.googleapis.com/css?family=Cinzel',
+        creator: 'Natanael Gama',
         type: 'Serif',
         moreInfo: 'https://fonts.google.com/specimen/Cinzel',
     },
@@ -331,6 +346,7 @@ const fontArray = [
     {
         name: 'Josefin Slab',
         url: 'https://fonts.googleapis.com/css?family=Josefin+Slab',
+        creator: 'Santiago Orozco',
         type: 'Serif',
         moreInfo: 'https://fonts.google.com/specimen/Josefin+Slab',
     },
@@ -338,7 +354,80 @@ const fontArray = [
     {
         name: 'Pridi',
         url: 'https://fonts.googleapis.com/css?family=Pridi',
+        creator: 'Cadson Demak',
         type: 'Serif',
         moreInfo: 'https://fonts.google.com/specimen/Pridi',
+    },
+
+    {
+        name: 'Noticia Text',
+        creator: 'JM Solé',
+        url: 'https://fonts.googleapis.com/css?family=Noticia+Text',
+        type: 'Serif',
+        moreInfo: 'https://fonts.google.com/specimen/Noticia+Text',
+    },
+
+    {
+        name: 'Roboto',
+        creator: 'Christian Robertson',
+        url: 'https://fonts.googleapis.com/css?family=Roboto',
+        type: 'Sans Serif',
+        moreInfo: 'https://fonts.google.com/specimen/Roboto',
+    },
+
+    {
+        name: 'Source Sans Pro',
+        creator: 'Paul D. Hunt',
+        url: 'https://fonts.googleapis.com/css?family=Source+Sans+Pro',
+        type: 'Sans Serif',
+        moreInfo: 'https://fonts.google.com/specimen/Source+Sans+Pro',
+    },
+
+    {
+        name: 'Noto Sans',
+        creator: 'Google',
+        url: 'https://fonts.googleapis.com/css?family=Noto+Sans',
+        type: 'Sans Serif',
+        moreInfo: 'https://fonts.google.com/specimen/Noto+Sans',
+    },
+
+    {
+        name: 'Fira Sans',
+        creator: 'Carrois Apostrophe',
+        url: 'https://fonts.googleapis.com/css?family=Fira+Sans',
+        type: 'San Serif',
+        moreInfo: 'https://fonts.google.com/specimen/Fira+Sans',
+    },
+
+    {
+        name: 'Rubik',
+        creator: 'Hubert and Fischer, Meir Sadan and Cyreal',
+        url: 'https://fonts.googleapis.com/css?family=Rubik',
+        type: 'Sans Serif',
+        moreInfo: 'https://fonts.google.com/specimen/Rubik',
+    },
+
+    {
+        name: 'Cairo',
+        creator: 'Mohamed Gaber, Multiple Designers',
+        url: 'https://fonts.googleapis.com/css?family=Cairo',
+        type: 'Sans Serif',
+        moreInfo: 'https://fonts.google.com/specimen/Cairo',
+    },
+
+    {
+        name: 'Catamaran',
+        creator: 'Pria Ravichandran',
+        url: 'https://fonts.googleapis.com/css?family=Catamaran',
+        type: 'Sans Serif',
+        moreInfo: 'https://fonts.google.com/specimen/Catamaran',
+    },
+
+    {
+        name: 'Monda',
+        creator: 'Vernon Adams',
+        url: 'https://fonts.googleapis.com/css?family=Monda',
+        type: 'Sans Serif',
+        moreInfo: 'https://fonts.google.com/specimen/Monda',
     },
 ]
