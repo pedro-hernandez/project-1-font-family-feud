@@ -110,11 +110,11 @@ const playGame = () => {
 
         if (fontPosition === imposterPosition) {
             rightPick();
-            rigthWrong.innerHTML = `Good job finding the imposter font!`;
+            rigthWrong.innerHTML = `Good job finding the imposter font! 😃`;
             score = score + 1;
         } else {
             wrongPick();
-            rigthWrong.innerHTML = `Nope! That wasn't the imposter font.`;
+            rigthWrong.innerHTML = `Nope! That wasn't the imposter font. 😦`;
         }
     }
 
@@ -168,7 +168,6 @@ const imposterPicker = () => {
         imposterLetter.setAttribute('style', 'font-family');
         imposterLetter.style.fontFamily = (imposterFontName);
     }
-
 }
 
 // resets game board, tallies up score and increments round
@@ -239,7 +238,7 @@ const results = () => {
 
     resultsText = document.createElement('p');
     resultsText = resultsScreen.appendChild(resultsText);
-    resultsText.innerHTML = `You found ${score} out of 5 imposter fonts.<br>Click to play again.`;
+    resultsText.innerHTML = `You found ${score} out of 5 imposter fonts. 🤔<br>Click to play again.`;
 
     resultsText.addEventListener('click', function () {
         removeResults();
@@ -255,7 +254,6 @@ const removeResults = () => {
     currentRound = 0;
     resultsText.remove();
     reset();
-
 }
 
 // change font-family background color depending on right/wrong pick

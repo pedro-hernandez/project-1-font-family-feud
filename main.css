@@ -60,11 +60,11 @@ h1 {
 
 .font-box img {
     vertical-align: middle;
-    /* animation: opacity 2s ease-in 0s 1 normal none; */
+    animation: opacity 2s ease-in 0s 1 normal none;
 }
 
 .font-box p{
-    /* animation: opacity 1s ease-in 0s 1 normal none; */
+    animation: opacity 1s ease-in 0s 1 normal none;
 }
 
 .font-box-exclude {
@@ -111,11 +111,11 @@ h1 {
     list-style-type: none;
     font-family: monospace;
     padding: 10px;
-    margin-top: 10px;
+    margin: 20px 0;
 }
 
 .show-info li {
-    margin: 0 0 5px 0;
+    margin-left: 10px;
 }
 
 .show-info h2 {
@@ -182,7 +182,8 @@ h1 {
     font-size: 30px;
     border: 2px solid #2b2a2a;
     border-radius: 4px;
-    margin: 10px 0 0 0;
+    margin: 10px 0;
+    cursor: pointer;
 }
 
 .button:hover {
