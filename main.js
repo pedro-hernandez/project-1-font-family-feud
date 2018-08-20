@@ -88,8 +88,7 @@ const playGame = () => {
 
     mainFont();
 
-    // Randomly selects another imposter font if the same "font-family" font and 
-    // imposter fonts are selected
+    // imposter font is selected
 
     imposterPicker();
 
@@ -127,8 +126,6 @@ const mainFont = () => {
     chosenFont = randomFontName;
 
     randomFontBy = fontArray[randomizeFont].creator;
-    console.log(randomFontBy);
-
     randomFontUrl = fontArray[randomizeFont].url;
     randomFontType = fontArray[randomizeFont].type;
     randomFontMoreInfo = fontArray[randomizeFont].moreInfo;
@@ -148,7 +145,6 @@ const imposterPicker = () => {
         imposterPicker();
     } else {
         imposterFontBy = fontArray[randomizeImposterFont].creator;
-        console.log(imposterFontBy);
         imposterFontUrl = fontArray[randomizeImposterFont].url;
         imposterFontType = fontArray[randomizeImposterFont].type;
         imposterFontMoreInfo = fontArray[randomizeImposterFont].moreInfo;
@@ -274,7 +270,7 @@ const revealImposter = () => {
     imposterLetter.style.fontFamily = (imposterFontName);
 }
 
-// fontArray array of objects with starter Serif fonts
+// fontArray array of objects
 
 const fontArray = [
     {

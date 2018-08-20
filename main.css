@@ -63,10 +63,6 @@ h1 {
     animation: opacity 2s ease-in 0s 1 normal none;
 }
 
-.font-box p{
-    animation: opacity 1s ease-in 0s 1 normal none;
-}
-
 .font-box-exclude {
     padding: 0 5px;
 }
