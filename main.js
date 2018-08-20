@@ -35,12 +35,13 @@ let fontBy = document.querySelector('.font-by');
 let fontType = document.querySelector('.font-type');
 let fontUrl = document.querySelector('.font-url');
 let imposterFont = document.querySelector('.imposter-font-name');
-console.log(imposterFont);
-
+let rightPickDiv;
+let wrongPickDiv;
 let imposterName = document.querySelector('.imposter-name');
 let imposterBy = document.querySelector('.imposter-by');
 let imposterType = document.querySelector('.imposter-type');
 let imposterUrl = document.querySelector('.imposter-url');
+let resultsText;
 
 // round and score tracking
 
@@ -99,27 +100,20 @@ const playGame = () => {
     function fontClick(event) {
 
         showInfoPane();
+        revealImposter();
         const fontPosition = parseInt(event.target.dataset.position);
-        console.log(`position clicked: ${fontPosition}`);
-        console.log(`imposter position: ${imposterPosition}`);
 
         // Evaluate if the clicked letter is part of the font-family
         // or an imposter font
 
-        // countdown();    
-
         if (fontPosition === imposterPosition) {
+            rightPick();
             rigthWrong.innerHTML = `Good job finding the imposter font!`;
-            // alert('You found the imposter font!');
             score = score + 1;
-            console.log(`score: ${score}`);
         } else {
-            rigthWrong.innerHTML = `Sorry, not the imposter font`;
-            // alert('Sorry, not the imposter.');
+            wrongPick();
+            rigthWrong.innerHTML = `Nope! That wasn't the imposter font.`;
         }
-
-        roundTracker();
-
     }
 
     roundTracker();
@@ -129,9 +123,6 @@ const mainFont = () => {
     const randomizeFont = (Math.floor(Math.random() * fontArray.length));
     randomFontName = fontArray[randomizeFont].name;
     chosenFont = randomFontName;
-
-    console.log(`font family name: ${chosenFont}`);
-
 
     randomFontUrl = fontArray[randomizeFont].url;
     randomFontType = fontArray[randomizeFont].type;
@@ -151,8 +142,6 @@ const imposterPicker = () => {
     if (imposterFontName === chosenFont) {
         imposterPicker();
     } else {
-        console.log(`imposter font name: ${imposterFontName}`);
-
         imposterFontUrl = fontArray[randomizeImposterFont].url;
         imposterFontType = fontArray[randomizeImposterFont].type;
         imposterFontMoreInfo = fontArray[randomizeImposterFont].moreInfo;
@@ -163,6 +152,7 @@ const imposterPicker = () => {
         imposterPosition = randomImposter;
 
         // place and display imposter font
+
         const imposterFontHeadLink = document.querySelector('.imposter-font');
         imposterFontHeadLink.setAttribute('href', imposterFontUrl);
         const imposterFontBox = document.querySelectorAll('.font-box');
@@ -170,8 +160,6 @@ const imposterPicker = () => {
         imposterLetter = imposterParagraph.firstElementChild;
         imposterLetter.setAttribute('style', 'font-family');
         imposterLetter.style.fontFamily = (imposterFontName);
-        // console.log(`imposterLetter: ${imposterLetter}`);
-        // console.log(`imposter position ${imposterPosition}`);
     }
 
 }
@@ -179,11 +167,20 @@ const imposterPicker = () => {
 // resets game board, tallies up score and increments round
 
 const reset = () => {
-    console.log(`Current Score: ${score}`);
-    console.log(`Current Round: ${currentRound}`);
+
+    if (fontBoxHide.classList.contains('right-pick') === true) {
+        fontBoxHide.classList.toggle('right-pick')
+    } else if (fontBoxHide.classList.contains('wrong-pick') === true) {
+        fontBoxHide.classList.toggle('wrong-pick');
+    } else {
+
+    }
+
+    showInfo.style.display = "none";
     currentRound++;
     imposterPosition;
     imposterLetter.removeAttribute('style');
+    welcomeDiv.style.display = "none";
     setInterval(mainFont(), 1000);
     setInterval(imposterPicker(), 1000);
 }
@@ -193,8 +190,12 @@ const reset = () => {
 const showInfoPane = () => {
 
     showInfo.style.display = 'block';
+
+    const button = document.querySelector('.button');
+    button.addEventListener('click', roundTracker);
+
     randomFont.innerHTML = `<span>font-family</span>: ${randomFontName}`;
-    fontBy.innerHTML = `by:`;
+    fontBy.innerHTML = `creator:`;
     fontType.innerHTML = `type: ${randomFontType}`;
     fontUrl.innerHTML = `more info: <a href="${randomFontMoreInfo}" target="_blank">${randomFontMoreInfo}</a>`;
     imposterFont.innerHTML = `<span>imposter font</span>: ${imposterFontName}`;
@@ -205,8 +206,7 @@ const showInfoPane = () => {
 
 }
 
-
-// tracks rounds and generates outcomes screen
+// tracks rounds and generates results screen
 
 const roundTracker = () => {
     if (currentRound < 5) {
@@ -216,10 +216,11 @@ const roundTracker = () => {
     }
 }
 
-
 // generates results screen at the end of each round
 
 const results = () => {
+
+    showInfo.style.display = "none";
 
     fontBoxHide = document.querySelector('.fonts-box');
     fontBoxHide.style.display = "none";
@@ -229,9 +230,9 @@ const results = () => {
 
     welcomeParagraph.style.display = "none";
 
-    let resultsText = document.createElement('p');
+    resultsText = document.createElement('p');
     resultsText = resultsScreen.appendChild(resultsText);
-    resultsText.innerHTML = `You have correctly identified ${score} out of 5 imposter fonts.<br>Click to play again.`;
+    resultsText.innerHTML = `You found ${score} out of 5 imposter fonts.<br>Click to play again.`;
 
     resultsText.addEventListener('click', function () {
         removeResults();
@@ -243,8 +244,29 @@ const results = () => {
 const removeResults = () => {
 
     resultsScreen.style.display = "none";
-    playGame();
+    score = 0;
+    currentRound = 0;
+    resultsText.remove();
+    reset();
 
+}
+
+// change font-family background color depending on right/wrong pick
+
+const rightPick = () => {
+    fontBoxHide.classList.toggle('right-pick');
+}
+
+const wrongPick = () => {
+    fontBoxHide.classList.toggle('wrong-pick');
+}
+
+// shows imposter font position
+
+const revealImposter = () => {
+    imposterLetter.setAttribute('style', 'text-decoration');
+    imposterLetter.style.textDecoration = ('underline');
+    imposterLetter.style.fontFamily = (imposterFontName);
 }
 
 // fontArray array of objects with starter Serif fonts

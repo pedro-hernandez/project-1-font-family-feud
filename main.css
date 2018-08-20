@@ -35,6 +35,15 @@ h1 {
     padding: 30px 0;
 }
 
+@keyframes opacity {
+	0% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
+	}
+}
+
 .fonts-box-gradient {
     background-image:
     radial-gradient(
@@ -42,20 +51,21 @@ h1 {
         #616060,
         #2b2a2a
     );
+    animation: opacity 1.5s ease-in 0s 1 normal none;
 }  
 
-/* .font-box-gradient-ani {
-
-    animation: color-change 5s linear infinite alternate;
-
-} */
-
 .font-box {
-    padding: 0 5px; 
+    padding: 0 5px;
+    animation: opacity 1.5s ease-in 0s 1 normal none;
 }
 
 .font-box img {
     vertical-align: middle;
+    animation: opacity 2s ease-in 0s 1 normal none;
+}
+
+.font-box p{
+    animation: opacity 1s ease-in 0s 1 normal none;
 }
 
 .font-box-exclude {
@@ -65,14 +75,6 @@ h1 {
 .font-pointer {
     cursor: pointer;
 }
-
-/* .timer {
-    width: 20%;
-    margin: 0 auto;
-    text-align: center;
-    font-size: 40px;
-    color: #c2c1c1;
-} */
 
 .welcome {
     width: 100%;
@@ -95,6 +97,7 @@ h1 {
         #616060,
         #2b2a2a
     );
+    animation: opacity 1s ease-in 0s 1 normal none;
 }
 
 .show-info{
@@ -102,22 +105,7 @@ h1 {
     margin: 0 auto;
     font-size: 20px;
     color: #c2c1c1;
-    transition: opacity;
-    /* fade-in animation */
-	opacity: 1;
-	animation-name: opacity;
-	animation-iteration-count: 1;
-	animation-timing-function: ease-in;
-	animation-duration: 1s;
-}
-
-@keyframes opacity {
-	0% {
-		opacity: 0;
-	}
-	100% {
-		opacity: 1;
-	}
+    animation: opacity 1s ease-in 0s 1 normal none;
 }
 
 .show-info ul{
@@ -166,3 +154,40 @@ h1 {
     color:#b5d775;
 }
 
+.right-pick {
+    background-image:
+    radial-gradient(
+        circle at bottom center,
+        #2e613b,
+        #2b2a2a
+    );
+}
+
+.wrong-pick {background-image:
+    radial-gradient(
+        circle at bottom center,
+        #612e2e,
+        #2b2a2a
+    );
+}
+
+.next-round{
+    text-align: center
+}
+
+.button {
+    width: 50%;
+    background-color: #c2c1c1;
+    color: #2b2a2a;
+    font-family: monospace;
+    font-size: 30px;
+    border: 2px solid #2b2a2a;
+    border-radius: 4px;
+}
+
+.button:hover {
+    background-color: #2b2a2a;
+    color: #c2c1c1;
+    border: 2px solid #c2c1c1;
+    border-radius: 4px;
+}
