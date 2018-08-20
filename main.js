@@ -201,7 +201,7 @@ const showInfoPane = () => {
     const button = document.querySelector('.button');
     button.addEventListener('click', roundTracker);
 
-    randomFont.innerHTML = `<span>font-family</span>: ${randomFontName}`;
+    randomFont.innerHTML = `<span>font-family</span>: "${randomFontName}";`;
     fontBy.innerHTML = `creator: ${randomFontBy}`;
     fontType.innerHTML = `type: ${randomFontType}`;
     fontUrl.innerHTML = `more info: <a href="${randomFontMoreInfo}" target="_blank">${randomFontMoreInfo}</a>`;

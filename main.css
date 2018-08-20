@@ -60,11 +60,11 @@ h1 {
 
 .font-box img {
     vertical-align: middle;
-    animation: opacity 2s ease-in 0s 1 normal none;
+    /* animation: opacity 2s ease-in 0s 1 normal none; */
 }
 
 .font-box p{
-    animation: opacity 1s ease-in 0s 1 normal none;
+    /* animation: opacity 1s ease-in 0s 1 normal none; */
 }
 
 .font-box-exclude {
