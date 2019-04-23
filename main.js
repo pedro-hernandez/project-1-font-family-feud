@@ -51,7 +51,6 @@ let currentRound;
 let score = 0;
 
 const welcome = () => {
-
     fontBoxHide = document.querySelector('.fonts-box');
     fontBoxHide.style.display = 'none';
 
@@ -92,15 +91,15 @@ const playGame = () => {
     // Register clicks on game board
     boardClick.addEventListener('click', fontClick);
 
-
     function fontClick(event) {
         showInfoPane();
         revealImposter();
         const fontPosition = parseInt(event.target.dataset.position);
 
-        // removes event listener
+        // Disables further clicks on game board after selection, 
+        // preventing unwanted behavior
 
-        boardClick.removeEventListener('click', fontClick);
+        boardClick.style.pointerEvents = 'none';
 
         // Evaluate if the clicked letter is part of the font-family
         // or an imposter font
@@ -134,7 +133,6 @@ const mainFont = () => {
 }
 
 const imposterPicker = () => {
-
     let randomizeImposterFont = (Math.floor(Math.random() * fontArray.length));
     imposterFontName = fontArray[randomizeImposterFont].name;
 
@@ -166,9 +164,8 @@ const imposterPicker = () => {
 // resets game board, tallies up score and increments round
 
 const reset = () => {
-
     if (fontBoxHide.classList.contains('right-pick') === true) {
-        fontBoxHide.classList.toggle('right-pick')
+        fontBoxHide.classList.toggle('right-pick');
     } else if (fontBoxHide.classList.contains('wrong-pick') === true) {
         fontBoxHide.classList.toggle('wrong-pick');
     } else {
@@ -187,7 +184,6 @@ const reset = () => {
 // displays font-family and imposter font information
 
 const showInfoPane = () => {
-
     showInfo.style.display = 'block';
 
     const button = document.querySelector('.button');
@@ -218,7 +214,6 @@ const roundTracker = () => {
 // generates results screen at the end of each round
 
 const results = () => {
-
     showInfo.style.display = "none";
 
     fontBoxHide = document.querySelector('.fonts-box');
@@ -241,7 +236,6 @@ const results = () => {
 // removes results screen to start over
 
 const removeResults = () => {
-
     resultsScreen.style.display = 'none';
     score = 0;
     currentRound = 0;
@@ -257,7 +251,6 @@ const rightPick = () => {
 
 const wrongPick = () => {
     fontBoxHide.classList.toggle('wrong-pick');
-
 }
 
 // shows imposter font position
