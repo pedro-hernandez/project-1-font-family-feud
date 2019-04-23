@@ -25,7 +25,7 @@ let imposterFontName;
 
 // event
 
-let boardClick;
+const boardClick = document.querySelector('.fonts-box');
 
 // results
 
@@ -93,16 +93,18 @@ const playGame = () => {
     imposterPicker();
 
     // Register clicks on game board
-
-    boardClick = document.querySelector('.fonts-box');
-
     boardClick.addEventListener('click', fontClick);
 
-    function fontClick(event) {
 
+    function fontClick(event) {
         showInfoPane();
         revealImposter();
         const fontPosition = parseInt(event.target.dataset.position);
+
+        // removes event listener
+
+        boardClick.removeEventListener('click', fontClick);
+
 
         // Evaluate if the clicked letter is part of the font-family
         // or an imposter font
@@ -116,7 +118,6 @@ const playGame = () => {
             rigthWrong.innerHTML = `Nope! That wasn't the imposter font. 😦`;
         }
     }
-
     roundTracker();
 }
 
@@ -260,6 +261,7 @@ const rightPick = () => {
 
 const wrongPick = () => {
     fontBoxHide.classList.toggle('wrong-pick');
+
 }
 
 // shows imposter font position
