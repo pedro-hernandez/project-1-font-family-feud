@@ -73,14 +73,11 @@ welcome();
 // removes welcome screen and starts game
 
 const removeWelcome = () => {
-
     welcomeDiv.style.display = "none";
     playGame();
-
 }
 
 const playGame = () => {
-
     currentRound = 0;
     score = 0;
 
@@ -104,7 +101,6 @@ const playGame = () => {
         // removes event listener
 
         boardClick.removeEventListener('click', fontClick);
-
 
         // Evaluate if the clicked letter is part of the font-family
         // or an imposter font
