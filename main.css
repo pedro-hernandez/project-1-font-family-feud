@@ -52,7 +52,7 @@ h1 {
         #2b2a2a
     );
     animation: opacity 1.5s ease-in 0s 1 normal none;
-}  
+}
 
 .font-box {
     padding: 0 5px;
@@ -157,6 +157,7 @@ h1 {
         #2e613b,
         #2b2a2a
     );
+    animation: grow 0.82s ease-in;
 }
 
 .wrong-pick {background-image:
@@ -165,7 +166,7 @@ h1 {
         #612e2e,
         #2b2a2a
     );
-    animation: shake 0.82s cubic-bezier(.36,.07,.19,.97) both;
+    animation: shake 0.82s ease-in-out;
 }
 
 .next-round{
@@ -195,16 +196,27 @@ h1 {
     10%, 90% {
       transform: translate3d(-2px, 0, 0);
     }
-    
+
     20%, 80% {
       transform: translate3d(4px, 0, 0);
     }
-  
+
     30%, 50%, 70% {
       transform: translate3d(-8px, 0, 0);
     }
-  
+
     40%, 60% {
       transform: translate3d(8px, 0, 0);
     }
-  }  
+  }
+
+  @keyframes grow {
+
+    50% {
+      transform: scale(1.05);
+    }
+
+    100% {
+      transform: scale(1);
+    }
+  }
