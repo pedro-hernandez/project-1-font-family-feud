@@ -5,4 +5,7 @@ A game where the object is to find an imposter font hiding among the members of 
 
 Among the ten characters that comprise a "font-family," excluding the hyphen, hides an imposter font. The player's goal is to find them across five turns and learn a little more about fonts in the process.
 
-Fonts are randomly chosen from Google Fonts. Done in HTML, JavaScript and CSS. 
+Fonts are randomly chosen from Google Fonts. Done in HTML, JavaScript and CSS.
+Playable here: https://font-family-feud.pedro.dev/
+
+![screenshot](/img/screenshot.png)
